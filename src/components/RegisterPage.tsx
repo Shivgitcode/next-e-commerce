@@ -26,6 +26,9 @@ export default function Register() {
             },
             body: JSON.stringify({ username, email, password })
         })
+        setEmail("")
+        setName("")
+        setPassword("")
 
 
         if (response.ok) {
@@ -40,6 +43,8 @@ export default function Register() {
             toast.error(data, { position: "top-center", richColors: true })
 
         }
+
+
 
     }
     return (

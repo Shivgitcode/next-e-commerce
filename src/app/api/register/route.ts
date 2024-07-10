@@ -18,7 +18,7 @@ export async function POST(req: Request) {
         }
     })
     if (findUser) {
-        return Response.json("User already exits", { status: 405 })
+        return Response.json("User already exist", { status: 405 })
     }
     const createUser = await prisma.user.create({
         data: {

@@ -2,15 +2,28 @@
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { signIn, signOut, useSession } from "next-auth/react"
-import { useEffect } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function LoginPage() {
     const session = useSession();
     const router = useRouter();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+        signIn("credentials", {
+            username: email,
+            password: password
+        })
+        toast.success("successfully Logged In", { position: "top-center", richColors: true })
+
+    }
+
 
     useEffect(() => {
-        console.log(session.data)
         if (session.data !== null) {
             router.push("/")
 
@@ -20,9 +33,9 @@ export default function LoginPage() {
 
     return (
         <div className="flex flex-col items-center w-full">
-            <form className="flex flex-col mt-[20px] w-full">
-                <input type="text" placeholder="Email" className=" p-[18px] rounded-2xl bg-[#f6f6f6]" />
-                <input type="password" placeholder="password" className=" p-[18px] rounded-2xl bg-[#f6f6f6] mt-[20px]" />
+            <form className="flex flex-col mt-[20px] w-full" onSubmit={handleSubmit}>
+                <input type="text" placeholder="Email" className=" p-[18px] rounded-2xl bg-[#f6f6f6]" onChange={(e) => setEmail(e.target.value)} />
+                <input type="password" placeholder="password" className=" p-[18px] rounded-2xl bg-[#f6f6f6] mt-[20px]" onChange={(e) => setPassword(e.target.value)} />
                 <button className=" p-[20px] my-10 bg-black text-white font-medium rounded-2xl">Login</button>
                 <Link href={"/"} className=" text-[16px] font-bold mb-[25px]">Forgot Password?</Link>
             </form>

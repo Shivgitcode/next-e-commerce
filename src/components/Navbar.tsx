@@ -26,9 +26,9 @@ export default function Navbar() {
                     <div className="flex items-center justify-center ml-[40px] gap-2 relative" >
                         <div className="flex items-center justify-center gap-2 cursor-pointer" onMouseEnter={() => setHide(false)} onMouseLeave={() => setHide(true)}>
                             <div className="w-[32px] h-[32px] relative ">
-                                <Image src={session.data?.user?.image as string} alt="onigiri" fill className="rounded-full"></Image>
+                                <Image src={session.data !== null ? session.data?.user?.image as string : "/zoro.png"} alt="onigiri" fill className="rounded-full"></Image>
                             </div>
-                            <span className=" font-medium text-[14px]">{`Hello ${session.data?.user?.name?.toLowerCase().slice(0, 8)}`}</span>
+                            <span className=" font-medium text-[14px]">{`Hello ${session.data !== null ? session.data?.user?.name?.toLowerCase().slice(0, 8) : "user"}`}</span>
                             <div>
                                 <IoIosArrowDown></IoIosArrowDown>
                             </div>
@@ -40,7 +40,7 @@ export default function Navbar() {
                             <div className={` flex flex-col p-[30px] text-[14px] font-bold border-[1px] rounded-xl gap-3 bg-white items-start `}>
 
                                 {session.data !== null ? <button onClick={() => signOut()}>logout</button> : <Link href={"/login"}>Login</Link>}
-                                <Link href={"/register"}>Register</Link>
+                                <Link href={"/login"}>Register</Link>
                             </div>
 
                         </div>
