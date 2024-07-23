@@ -34,7 +34,7 @@ export default function Navbar() {
                             </div>
                         </div>
 
-                        <div className={`flex flex-col absolute top-6 ${hide && " opacity-0 translate-y-[-5px]"} transition-all duration-150`} onMouseEnter={() => setHide(false)} onMouseLeave={() => setHide(true)} >
+                        <div className={`flex flex-col absolute top-6 ${hide && " opacity-0 translate-y-[-5px]"} transition-all duration-150 z-20`} onMouseEnter={() => setHide(false)} onMouseLeave={() => setHide(true)} >
                             <div className="shape h-7 w-[60%] mx-auto bg-slate-200 ">
                             </div>
                             <div className={` flex flex-col p-[30px] text-[14px] font-bold border-[1px] rounded-xl gap-3 bg-white items-start `}>
