@@ -1,3 +1,5 @@
+// "use client"
+import AddtoCart from "@/components/AddtoCart";
 import { products } from "@/utils";
 import { addToCart, oneProduct } from "@/utils/data";
 import Image from "next/image";
@@ -10,14 +12,6 @@ export default async function Product({ params }: { params: { productId: string 
     const id = params.productId
 
     const product = await oneProduct(id)
-    const addProduct = async () => {
-        "use server";
-        await addToCart(id)
-        toast.success("successfully Added to cart", { position: "top-center", richColors: true })
-
-    }
-
-
 
 
     return (
@@ -46,9 +40,9 @@ export default async function Product({ params }: { params: { productId: string 
                     </div>
                     <div className="h-[1px] w-full my-[10px] bg-black"></div>
                 </div>
-                <div className="flex w-full justify-between my-[20px]">
-                    <button className="p-[20px] w-full bg-black text-white text-[16px] font-bold rounded-[16px] hover:text-black hover:bg-white transition-all duration-100 border-2 border-black" onClick={addProduct}>Add To Cart</button><div className="ml-[20px] py-[10px] px-[15px] rounded-md    border-2 flex justify-center items-center"><CiHeart fontSize={"30"}></CiHeart></div>
-                </div>
+                <>
+                    <AddtoCart id={id}></AddtoCart>
+                </>
                 <div className="h-[1px] w-full my-[10px] bg-black"></div>
                 <div>
                     <h3 className="mt-[10px] font-bold">Product Information</h3>

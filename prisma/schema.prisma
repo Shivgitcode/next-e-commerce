@@ -73,21 +73,23 @@ model Category {
 }
 
 model Product {
-  id         String   @id @default(uuid())
+  id         String     @id @default(uuid())
   name       String
   desc       String
   img        String
   discount   Int
   mrp        Int
   sale       Int
-  category   Category @relation(fields: [categoryId], references: [id])
+  category   Category   @relation(fields: [categoryId], references: [id])
+  cart       CartItem[]
   categoryId String
 }
 
 model CartItem {
   id        String  @id @default(uuid())
   quantity  Int?
-  productId String?
+  productId String
   user      User    @relation(fields: [userId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
   userId    String
 }

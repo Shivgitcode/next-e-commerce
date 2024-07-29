@@ -6,7 +6,7 @@ import { Adapter } from "next-auth/adapters";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt"
 
-const handler = NextAuth({
+export const authOptions = {
     adapter: PrismaAdapter(prisma) as Adapter,
     providers: [
         CredentialsProvider({
@@ -35,6 +35,8 @@ const handler = NextAuth({
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
         })
     ]
-})
+}
+
+const handler = NextAuth(authOptions)
 
 export { handler as GET, handler as POST }

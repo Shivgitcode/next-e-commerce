@@ -4,11 +4,25 @@ import { BsCart2 } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
+import { cartItems } from "@/utils/data";
+import useMyContext from "@/context/AppContext";
+
+
 export default function Navbar() {
     const [hide, setHide] = useState(true)
+    const { cart, setCart } = useMyContext()
+
+
     const session = useSession()
+    useEffect(() => {
+        const items = async () => {
+            const cartItem = await cartItems()
+            setCart(cartItem)
+        }
+        items()
+    })
     // console.log(session)
     return (
         <div className="w-full">
@@ -21,7 +35,7 @@ export default function Navbar() {
                 <div className="flex items-center justify-between ">
                     <Link href={"/cart"} className="flex items-center gap-2 p-2">
                         <BsCart2></BsCart2>
-                        <span className=" font-semibold text-[14px]">Cart:0</span>
+                        <span className=" font-semibold text-[14px]">Cart:{session.data?.user !== null ? cart?.length : 0}</span>
                     </Link>
                     <div className="flex items-center justify-center ml-[40px] gap-2 relative" >
                         <div className="flex items-center justify-center gap-2 cursor-pointer" onMouseEnter={() => setHide(false)} onMouseLeave={() => setHide(true)}>

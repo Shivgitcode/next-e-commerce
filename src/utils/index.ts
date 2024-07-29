@@ -35,3 +35,10 @@ export type Product = {
     categoryId: string
 }
 
+export type Cart = {
+    id: string;
+    quantity: number | null;
+    productId: string | null;
+    userId: string;
+    product: Product
+}

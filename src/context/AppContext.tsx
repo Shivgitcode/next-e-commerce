@@ -1,11 +1,13 @@
 "use client";
 
 import { SetStateAction, createContext, useContext, useState } from "react";
-import { useSession } from "next-auth/react";
+import { Cart } from "@/utils";
 
 type Value = {
     type: string,
     setType: React.Dispatch<SetStateAction<string>>,
+    cart: Cart[] | undefined,
+    setCart: React.Dispatch<SetStateAction<Cart[] | undefined>>
 
 }
 
@@ -16,10 +18,13 @@ export const AppContext = createContext<undefined | Value>(undefined)
 
 export function AppContextProvider({ children }: { children: React.ReactNode }) {
     const [type, setType] = useState<string>("login")
-    const session = useSession()
+    const [cart, setCart] = useState<Cart[] | undefined>(undefined)
+
     const value: Value = {
         type,
         setType,
+        cart,
+        setCart
 
     }
     return <AppContext.Provider value={value}>

@@ -1,5 +1,7 @@
+"use server"
 import prisma from "@/PrismaInitialize";
-import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth/next";
 
 const productsData = async (name: string) => {
 
@@ -27,8 +29,7 @@ const oneProduct = async (id: string) => {
 }
 
 const addToCart = async (id: string) => {
-    console.log(id)
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session?.user?.email) {
         throw new Error("User not authenticated");
     }
@@ -43,6 +44,8 @@ const addToCart = async (id: string) => {
         throw new Error("User not found");
     }
 
+
+
     await prisma.cartItem.create({
         data: {
             quantity: 1,
@@ -52,6 +55,50 @@ const addToCart = async (id: string) => {
     });
 }
 
+const cartItems = async () => {
+    const session = await getServerSession(authOptions);
+    const findUser = await prisma.user.findFirst({
+        include: {
+            CartItem: true
+        },
+        where: {
+            email: session?.user?.email
+        }
+    });
+
+    if (!findUser) {
+        return;
+    }
+
+    const items = await prisma.cartItem.findMany({
+        include: {
+            product: true
+        },
+        where: {
+            userId: findUser?.id
+
+        }
+    })
+
+    return items;
 
 
-export { productsData, oneProduct, addToCart };
+
+
+
+}
+
+
+const deleteCartItems = async (id: string) => {
+
+    await prisma.cartItem.delete({
+        where: {
+            id: id
+        }
+    })
+
+}
+
+
+
+export { productsData, oneProduct, addToCart, cartItems, deleteCartItems };
