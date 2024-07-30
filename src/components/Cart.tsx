@@ -1,6 +1,6 @@
 "use client";
 import useMyContext from "@/context/AppContext";
-import { Cart, products } from "@/utils";
+import type { Cart, products } from "@/utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
