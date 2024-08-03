@@ -22,7 +22,7 @@ export default function Navbar() {
             setCart(cartItem)
         }
         items()
-    })
+    }, [cart])
     // console.log(session)
     return (
         <div className="w-full">

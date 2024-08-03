@@ -40,7 +40,7 @@ export default function Cart() {
         }
         fetchCartItems()
         doSum()
-    }, [])
+    }, [cart])
 
 
     return (

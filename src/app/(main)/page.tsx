@@ -1,3 +1,5 @@
+"use client";
+
 import Products from "@/components/Products";
 import TopBar from "@/components/TopBar";
 

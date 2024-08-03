@@ -4,9 +4,18 @@ import {
 } from "react-icons/ci"
 import { addToCart } from "@/utils/data"
 import { toast } from "sonner"
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 export default function AddtoCart({ id }: { id: string }) {
+    const session = useSession()
+    const router = useRouter()
     const addProduct = async () => {
         // "use server";
+        if (session.status === "unauthenticated") {
+            return router.push("/login")
+
+        }
+
         await addToCart(id)
         toast.success("successfully Added to cart", { position: "top-center", richColors: true })
 

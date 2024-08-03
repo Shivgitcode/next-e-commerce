@@ -24,7 +24,7 @@ export default function LoginPage() {
 
 
     useEffect(() => {
-        if (session.data !== null) {
+        if (session.status === "authenticated") {
             router.push("/")
 
         }
