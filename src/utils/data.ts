@@ -1,6 +1,7 @@
 "use server"
 import prisma from "@/PrismaInitialize";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { NextAuthOptions } from "next-auth";
 import { getServerSession } from "next-auth/next";
 
 const productsData = async (name: string) => {
@@ -29,7 +30,7 @@ const oneProduct = async (id: string) => {
 }
 
 const addToCart = async (id: string) => {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions as NextAuthOptions);
     if (!session?.user?.email) {
         throw new Error("User not authenticated");
     }
