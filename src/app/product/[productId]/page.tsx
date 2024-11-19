@@ -31,8 +31,8 @@ export default async function Product({ params }: { params: { productId: string 
                     <div>
                         <h3 className="mb-[10px] text-[16px] font-bold">Sizes</h3>
                         <div className="flex">
-                            {size.map(el => (
-                                <button className=" border-2 rounded-[4px] py-[10px] px-[15px] mr-[10px] text-[13px]">{el}</button>
+                            {size.map((el, index) => (
+                                <button key={index} className=" border-2 rounded-[4px] py-[10px] px-[15px] mr-[10px] text-[13px]">{el}</button>
                             ))}
 
                         </div>

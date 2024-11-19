@@ -1,7 +1,6 @@
 "use server"
 import prisma from "@/PrismaInitialize";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth/next";
+import { auth } from "@/server/auth";
 
 const productsData = async (name: string) => {
 
@@ -29,7 +28,7 @@ const oneProduct = async (id: string) => {
 }
 
 const addToCart = async (id: string) => {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
     if (!session?.user?.email) {
         throw new Error("User not authenticated");
     }
@@ -56,7 +55,7 @@ const addToCart = async (id: string) => {
 }
 
 const cartItems = async () => {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
     const findUser = await prisma.user.findFirst({
         include: {
             CartItem: true

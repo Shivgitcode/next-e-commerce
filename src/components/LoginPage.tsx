@@ -3,8 +3,8 @@ import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { signIn, signOut, useSession } from "next-auth/react"
 import { FormEvent, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
     const session = useSession();
